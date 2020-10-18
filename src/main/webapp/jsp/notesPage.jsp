@@ -17,6 +17,7 @@
         <th scope="col">#</th>
         <th scope="col">Title</th>
         <th scope="col">Note</th>
+        <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -26,6 +27,12 @@
                 <td>${note.id}</td>
                 <td>${note.title}</td>
                 <td>${note.note}</td>
+                <td>
+<%--                    Delete form and make delete mapping--%>
+                    <form action="/notes/delete/${note.id}" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
 

@@ -31,4 +31,8 @@ public class NoteService {
         return noteRepo.findAll();
     }
 
+    public void deleteNote(int noteId) {
+        noteRepo.deleteById(noteId);
+    }
+
 }
