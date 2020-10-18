@@ -6,6 +6,8 @@ import dmytro.kudriavtsev.auth.lab1.repos.NoteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NoteService {
 
@@ -23,6 +25,10 @@ public class NoteService {
         note.setNote(noteDto.getNote());
 
         noteRepo.save(note);
+    }
+
+    public List<Note> getNotes() {
+        return noteRepo.findAll();
     }
 
 }
