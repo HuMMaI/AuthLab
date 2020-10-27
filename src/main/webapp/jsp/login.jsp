@@ -34,7 +34,11 @@
             <label for="password-lbl">Password:</label>
             <input type="password" class="form-control" id="password-lbl" name="password">
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="/pw/change" class="btn btn-outline-secondary">Forgot password</a>
+        </div>
     </form>
 </div>
 

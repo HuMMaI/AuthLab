@@ -1,5 +1,6 @@
 package dmytro.kudriavtsev.auth.lab1.services;
 
+import dmytro.kudriavtsev.auth.lab1.dtos.ChangePwDto;
 import dmytro.kudriavtsev.auth.lab1.dtos.RegistrationDto;
 import dmytro.kudriavtsev.auth.lab1.entities.Roles;
 import dmytro.kudriavtsev.auth.lab1.entities.User;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -39,5 +41,25 @@ public class UserService {
         user.setLastName(registrationDto.getLastName());
 
         userRepo.save(user);
+    }
+
+    public void changePw(ChangePwDto changePwDto) {
+        Optional<User> userMaybe = userRepo.findByEmail(changePwDto.getEmail());
+
+        if (!userMaybe.isPresent()) {
+            throw new RuntimeException("User not found!");
+        }
+
+        User user = userMaybe.get();
+
+        boolean isPasswordsEqual = passwordEncoder.matches(changePwDto.getOldPassword(), user.getPassword());
+
+        if (!isPasswordsEqual) {
+            throw new RuntimeException("Wrong old password!");
+        }
+
+        String encodePassword = passwordEncoder.encode(changePwDto.getNewPassword());
+
+        userRepo.updatePasswordByEmail(user.getEmail(), encodePassword);
     }
 }

@@ -43,7 +43,7 @@
             <input type="text" class="form-control" id="last-name-lbl" name="lastName">
         </div>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <button type="submit" class="btn btn-primary">Reg</button>
+        <button type="submit" class="btn btn-primary">Sign up</button>
     </form>
 </div>
 
