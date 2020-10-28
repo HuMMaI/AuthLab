@@ -29,9 +29,13 @@
                 <td>${note.note}</td>
                 <td>
 <%--                    Delete form and make delete mapping--%>
-                    <form action="/notes/delete/${note.id}" method="post">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    <div class="d-flex flex-row">
+                        <a href="/notes/edit/${note.id}" class="btn btn-outline-warning" style="height: 38px">Edit</a>
+                        <form action="/notes/delete/${note.id}" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         </c:forEach>

@@ -1,5 +1,6 @@
 package dmytro.kudriavtsev.auth.lab1.services;
 
+import dmytro.kudriavtsev.auth.lab1.dtos.EditNoteDto;
 import dmytro.kudriavtsev.auth.lab1.dtos.NoteDto;
 import dmytro.kudriavtsev.auth.lab1.entities.Note;
 import dmytro.kudriavtsev.auth.lab1.repos.NoteRepo;
@@ -33,6 +34,15 @@ public class NoteService {
 
     public void deleteNote(int noteId) {
         noteRepo.deleteById(noteId);
+    }
+
+    //check note
+    public Note findById(int noteId) {
+        return noteRepo.findById(noteId).get();
+    }
+
+    public void updateNote(EditNoteDto editNoteDto) {
+        noteRepo.updateNote(editNoteDto.getTitle(), editNoteDto.getNote(), editNoteDto.getNoteId());
     }
 
 }

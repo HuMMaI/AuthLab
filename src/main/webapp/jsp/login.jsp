@@ -36,7 +36,7 @@
         </div>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div class="d-flex justify-content-between">
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Sign in</button>
             <a href="/pw/change" class="btn btn-outline-secondary">Forgot password</a>
         </div>
     </form>
