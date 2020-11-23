@@ -16,7 +16,7 @@ import java.util.Set;
 @Service
 public class UserService {
 
-    private static final Set<Roles> DEFAULT_USER_ROLES = Collections.singleton(Roles.USER);
+    private static final Set<Roles> DEFAULT_USER_ROLES = Collections.singleton(Roles.PRE_USER);
 
     private final UserRepo userRepo;
 
@@ -51,6 +51,12 @@ public class UserService {
         }
 
         User user = userMaybe.get();
+
+        if (user.getRoles().stream().noneMatch(role -> role.equals(Roles.USER))) {
+            user.getRoles().add(Roles.USER);
+
+            userRepo.save(user);
+        }
 
         boolean isPasswordsEqual = passwordEncoder.matches(changePwDto.getOldPassword(), user.getPassword());
 
