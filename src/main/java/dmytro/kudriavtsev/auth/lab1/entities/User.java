@@ -30,6 +30,11 @@ public class User implements Serializable {
     @Column(name = "role")
     private Set<Roles> roles;
 
+    @Column(name = "auth_attempts")
+    private int authAttempts;
+
+    private boolean isAccountLocked;
+
     public User() {
     }
 
@@ -88,12 +93,30 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
+    public int getAuthAttempts() {
+        return authAttempts;
+    }
+
+    public void setAuthAttempts(int authAttempts) {
+        this.authAttempts = authAttempts;
+    }
+
+    public boolean isAccountLocked() {
+        return isAccountLocked;
+    }
+
+    public void setAccountLocked(boolean accountLocked) {
+        isAccountLocked = accountLocked;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
+                authAttempts == user.authAttempts &&
+                isAccountLocked == user.isAccountLocked &&
                 email.equals(user.email) &&
                 password.equals(user.password) &&
                 firstName.equals(user.firstName) &&
@@ -103,6 +126,6 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, firstName, lastName, roles);
+        return Objects.hash(id, email, password, firstName, lastName, roles, authAttempts, isAccountLocked);
     }
 }

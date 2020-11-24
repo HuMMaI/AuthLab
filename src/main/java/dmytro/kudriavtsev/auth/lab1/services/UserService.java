@@ -10,11 +10,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class UserService {
+
+    private final int MAX_ATTEMPTS = 3;
 
     private static final Set<Roles> DEFAULT_USER_ROLES = Collections.singleton(Roles.PRE_USER);
 
@@ -33,6 +36,8 @@ public class UserService {
 
         user.setEmail(registrationDto.getEmail());
         user.setRoles(DEFAULT_USER_ROLES);
+        user.setAuthAttempts(0);
+        user.setAccountLocked(true);
 
         String encodePassword = passwordEncoder.encode(registrationDto.getPassword());
         user.setPassword(encodePassword);
@@ -54,6 +59,7 @@ public class UserService {
 
         if (user.getRoles().stream().noneMatch(role -> role.equals(Roles.USER))) {
             user.getRoles().add(Roles.USER);
+//            user.getRoles().add(Roles.ADMIN);
 
             userRepo.save(user);
         }
@@ -67,5 +73,33 @@ public class UserService {
         String encodePassword = passwordEncoder.encode(changePwDto.getNewPassword());
 
         userRepo.updatePasswordByEmail(user.getEmail(), encodePassword);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
+    }
+
+    public void addAttempt(String email) {
+        Optional<User> maybeUser = userRepo.findByEmail(email);
+
+        if (!maybeUser.isPresent())
+            return;
+
+        User user = maybeUser.get();
+
+        int numOfAttempts = user.getAuthAttempts();
+        user.setAuthAttempts(++numOfAttempts);
+
+        if (user.getAuthAttempts() == MAX_ATTEMPTS) {
+            user.setAccountLocked(false);
+        }
+
+        userRepo.save(user);
+    }
+
+    public void resetPw(User user) {
+        user.setPassword("");
+
+        userRepo.save(user);
     }
 }
