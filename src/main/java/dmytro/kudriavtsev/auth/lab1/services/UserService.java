@@ -17,6 +17,8 @@ import java.util.Set;
 @Service
 public class UserService {
 
+    private final String DEFAULT_PW = "1111";
+
     private final int MAX_ATTEMPTS = 3;
 
     private static final Set<Roles> DEFAULT_USER_ROLES = Collections.singleton(Roles.PRE_USER);
@@ -98,7 +100,8 @@ public class UserService {
     }
 
     public void resetPw(User user) {
-        user.setPassword("");
+        String encodePassword = passwordEncoder.encode(DEFAULT_PW);
+        user.setPassword(encodePassword);
 
         userRepo.save(user);
     }
