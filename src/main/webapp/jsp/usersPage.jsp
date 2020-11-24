@@ -26,7 +26,6 @@
             <td>${user.id}</td>
             <td>${user.email}</td>
             <td>
-                    <%--                    Delete form and make delete mapping--%>
                 <div class="d-flex flex-row">
                     <form action="/admin/api/reset-pw/${user.id}" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
