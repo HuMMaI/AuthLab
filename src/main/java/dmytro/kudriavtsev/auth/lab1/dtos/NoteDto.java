@@ -4,6 +4,7 @@ public class NoteDto {
 
     private String title;
     private String note;
+    private int userId;
 
     public String getTitle() {
         return title;
@@ -19,5 +20,13 @@ public class NoteDto {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

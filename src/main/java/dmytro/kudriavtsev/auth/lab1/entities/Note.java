@@ -14,12 +14,15 @@ public class Note {
 
     private String note;
 
+    private int userId;
+
     public Note() {
     }
 
-    public Note(String title, String note) {
+    public Note(String title, String note, int userId) {
         this.title = title;
         this.note = note;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -44,5 +47,13 @@ public class Note {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

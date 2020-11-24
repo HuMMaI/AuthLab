@@ -32,7 +32,8 @@
                 <a href="/registration" class="btn btn-outline-success">Sign up</a>
             </security:authorize>
             <security:authorize access="isAuthenticated()">
-                <form action="/logout" method="post">
+                <a href="/pw/change" class="btn btn-outline-secondary" style="height: 38px; margin-right: 10px">Change password</a>
+                <form action="/logout" method="post" style="height: 24px">
                     <button type="submit" class="btn btn-outline-primary">Logout</button>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>

@@ -105,4 +105,8 @@ public class UserService {
 
         userRepo.save(user);
     }
+
+    public Optional<User> findByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
 }

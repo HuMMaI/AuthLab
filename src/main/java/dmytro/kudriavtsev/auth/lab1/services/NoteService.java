@@ -24,12 +24,13 @@ public class NoteService {
 
         note.setTitle(noteDto.getTitle());
         note.setNote(noteDto.getNote());
+        note.setUserId(noteDto.getUserId());
 
         noteRepo.save(note);
     }
 
-    public List<Note> getNotes() {
-        return noteRepo.findAll();
+    public List<Note> getNotesByUserId(int userId) {
+        return noteRepo.findByUserId(userId);
     }
 
     public void deleteNote(int noteId) {

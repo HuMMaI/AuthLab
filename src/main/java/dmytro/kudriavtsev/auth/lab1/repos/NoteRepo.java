@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface NoteRepo extends JpaRepository<Note, Integer> {
 
@@ -16,4 +18,5 @@ public interface NoteRepo extends JpaRepository<Note, Integer> {
     @Query("UPDATE Note n SET n.title = :title, n.note = :note WHERE n.id = :id")
     void updateNote(@Param("title") String title, @Param("note") String note, @Param("id") int id);
 
+    List<Note> findByUserId(int id);
 }

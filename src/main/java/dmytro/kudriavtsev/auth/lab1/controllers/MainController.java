@@ -36,13 +36,6 @@ public class MainController {
         return "index";
     }
 
-    @PostMapping("/add-note")
-    public String addNote(@ModelAttribute NoteDto noteDto) {
-        noteService.addNote(noteDto);
-
-        return "redirect:/";
-    }
-
     @GetMapping("/pre-user-page")
     @PreAuthorize("hasAuthority('PRE_USER')")
     public String preUserPage() {
